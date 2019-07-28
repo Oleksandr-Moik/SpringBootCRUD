@@ -15,12 +15,10 @@ import com.devsmile.springcrud.dao.UserDAO;
 import com.devsmile.springcrud.model.User;
 
 @RestController
-@RequestMapping(value = "/api/*")
 public class MainRESTController {
     
     @Autowired
     private UserDAO userDAO;
-//    private AddressDAO addressDAO;
     
     @RequestMapping("/")
     @ResponseBody
@@ -43,21 +41,21 @@ public class MainRESTController {
     @RequestMapping(value = "/user",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public User addUser(@RequestBody User user) {
-        System.out.println("Creating user: "+user.getId());
+        //System.out.println("Creating user: "+user.getId());
         return userDAO.addUser(user);
     }
    
-    @RequestMapping(value = "/user",method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/user/{userID}",method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public User updataUser(@RequestBody User user) {
-        System.out.println("Editing user: "+user.getId());
-        return userDAO.updateUser(user);
+    public User updateUser(@PathVariable("userID")Integer userID,@RequestBody User user) {
+        //System.out.println("Editing user: "+user.getId());
+        return userDAO.updateUser(userID, user);
     }
 
     @RequestMapping(value = "/user/{userID}",method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     private void deleteUser(@PathVariable("userID")Integer userID) {
-        System.out.println("Deleting user: "+userID);
+        //System.out.println("Deleting user: "+userID);
         userDAO.deleteUser(userID);
     }
 }
