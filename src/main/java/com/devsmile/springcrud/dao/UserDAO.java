@@ -14,6 +14,7 @@ import com.devsmile.springcrud.model.User;
 public class UserDAO {
 
     private static final Map<Integer, User> userMap = new HashMap<Integer, User>();
+    private static Integer lastUsedUserId;
     
     static {
         initEmps();
@@ -27,6 +28,7 @@ public class UserDAO {
         userMap.put(user1.getId(), user1);
         userMap.put(user2.getId(), user2);
         userMap.put(user3.getId(), user3);
+        lastUsedUserId=3;
     }
  
     public User getUser(Integer id) {
@@ -34,12 +36,13 @@ public class UserDAO {
     }
  
     public User addUser(User user) {
+        user.setId(++lastUsedUserId);
         userMap.put(user.getId(), user);
         return user;
     }
  
-    public User updateUser(User user) {
-        userMap.put(user.getId(), user);
+    public User updateUser(Integer id, User user) {
+        userMap.put(id, user);
         return user;
     }
  
